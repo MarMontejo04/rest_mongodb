@@ -4,14 +4,20 @@ import productoRutas from "./routes/productoRutas.js";
 import pedidoRutas from "./routes/pedidoRutas.js";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env" });
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(
-  "mongodb+srv://marianamontejo25_db_user:GWNoAi1BsOWCNNKS@cluster0.5cw7qx2.mongodb.net/restapi?appName=Cluster0"
-)
+mongoose.connect(process.env.MONGO_URI)
 
 const app = express();
+
+app.use(cors({
+  origin: "https://cliente-react-n1xu.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 
 //accesos json
 app.use(express.json());
